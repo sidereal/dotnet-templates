@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Stuart Thirkettle",
+    "classifications": [ "Common", "Console", "C#9" ],
+    "identity": "Template.DIConsole",
+    "name": "Console App with DI & Serilog",
+    "shortName": "diconsole",
+    "tags": {
+      "language": "C#",
+      "type": "project"
+    }
+  }
