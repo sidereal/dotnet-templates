@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Stuart Thirkettle",
+    "classifications": [ "Common", "Library", "C#9" ],
+    "identity": "Template.StandardLibrary",
+    "name": ".Net Standard Library with C#9",
+    "shortName": "cs9library",
+    "tags": {
+      "language": "C#",
+      "type": "project"
+    }
+  }
