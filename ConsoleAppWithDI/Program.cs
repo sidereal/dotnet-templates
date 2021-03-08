@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 
 using Serilog;
 
+using Sidereal.Executor;
+
 var builder = new ConfigurationBuilder();
 BuildConfig(builder);
 
@@ -20,7 +22,7 @@ Log.Logger.Information("Launching");
 
 var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
 {
-    services.AddTransient<Executor>();
+    //services.AddTransient<Executor>();
 
 }).UseSerilog().Build();
 
@@ -28,6 +30,8 @@ var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
 var executor = ActivatorUtilities.CreateInstance<Executor>(host.Services);
 await executor.RunAsync();
 executor.Run();
+
+Log.Logger.Information("Closing");
 
 static void BuildConfig(IConfigurationBuilder builder)
 {
