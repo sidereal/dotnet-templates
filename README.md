@@ -1,5 +1,5 @@
 # .Net Templates
-Template projects for .net > navigate to the project folder in your shell and run 'dotnet build -i .\\' for windows or 'dotnet build -i ./' for mac & linux.
+Template projects for .net > navigate to the project folder in your shell and run 'dotnet new -i .\\' for windows or 'dotnet new -i ./' for mac & linux.
 
 ### Included Projects >
 
