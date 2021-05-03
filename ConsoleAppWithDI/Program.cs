@@ -32,6 +32,7 @@ await executor.RunAsync();
 executor.Run();
 
 Log.Logger.Information("Closing");
+Log.CloseAndFlush();
 
 static void BuildConfig(IConfigurationBuilder builder)
 {
