@@ -3,6 +3,7 @@ Template projects for .net > navigate to the project folder in your shell and ru
 
 ### Included Projects >
 
-**ConsoleAppWithDI >** .net 5 / C#9 console app preconfigured with dependency injection and Serilog.
+**ConsoleAppWithDI-dn6 >** .net 6 / C#10 console app preconfigured with dependency injection and Serilog.
+**ConsoleAppWithDI-dn5 >** .net 5 / C#9 console app preconfigured with dependency injection and Serilog.
 
 **StandardClassLibraryWithCS9 >** .net Standard 2.1 class library configured to use C#9
