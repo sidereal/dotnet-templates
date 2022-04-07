@@ -3,7 +3,9 @@ Template projects for .net > navigate to the project folder in your shell and ru
 
 ### Included Projects >
 
-**ConsoleAppWithDI-dn6 >** .net 6 / C#10 console app preconfigured with dependency injection and Serilog.
+**ConsoleAppWithDI-dn6 >** .net 6 / C#10 console app preconfigured with dependency injection and Serilog, with GlobalUsing.cs, with nullable reference types enabled & with implict using disabled.
+
+**ClassLibrary-dn6 >** empty .net 6 library with GlobalUsing.cs, with nullable reference types enabled & with implict using disabled.
 
 **ConsoleAppWithDI-dn5 >** .net 5 / C#9 console app preconfigured with dependency injection and Serilog.
 
