@@ -7,6 +7,10 @@ Template projects for .net > navigate to the project folder in your shell and ru
 
 **ClassLibrary-dn6 >** empty .net 6 library with GlobalUsing.cs, with nullable reference types enabled & with implict using disabled.
 
+**MinimalApi >** Minimal API configured with Serilog & an example injected service
+
+
 **ConsoleAppWithDI-dn5 >** .net 5 / C#9 console app preconfigured with dependency injection and Serilog.
 
 **StandardClassLibraryWithCS9 >** .net Standard 2.1 class library configured to use C#9
+
