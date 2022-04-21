@@ -6,10 +6,16 @@ namespace MinimalApi
     {
         public static void Build(WebApplicationBuilder builder)
         {
+            IConfiguration configSerilog = new ConfigurationBuilder()
+             .AddJsonFile("appsettings.json", true, true)
+             .Build();
+
+            string logTemplate = "{NewLine}[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Properties:j}";
 
             builder.Logging.ClearProviders();
             var logger = new LoggerConfiguration()
-                .WriteTo.Console()
+                .ReadFrom.Configuration(configSerilog)
+                .WriteTo.Console(outputTemplate: logTemplate)
                 .CreateLogger();
 
             builder.Logging.AddSerilog(logger);
