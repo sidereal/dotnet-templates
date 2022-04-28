@@ -2,7 +2,7 @@
 {
     public static class MyPipeline
     {
-        public static void Build(WebApplication app)
+        public static void BuildMyPipeline(this WebApplication app)
         {
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

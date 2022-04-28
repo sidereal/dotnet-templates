@@ -4,7 +4,7 @@
     {
         static string[] _summaries = { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
 
-        public static void Build(WebApplication app)
+        public static void BuildMyEndpoints(this WebApplication app)
         {
 
             // The standard MS demo endpoint
@@ -33,11 +33,9 @@
                 var logger = loggerFactory.CreateLogger("dummy");
                 logger.LogInformation("Logged in endpoint {message}", message);
 
-
                 //using the injected service
                 ds.DoSomething(message);
                 return Results.Ok(message);
-
             });
         }
     }

@@ -4,7 +4,7 @@ namespace MinimalApi
 {
     public static class MyServices
     {
-        public static void Build(WebApplicationBuilder builder)
+        public static void BuildMyServices(this WebApplicationBuilder builder)
         {
             IConfiguration configSerilog = new ConfigurationBuilder()
              .AddJsonFile("appsettings.json", true, true)
