@@ -17,8 +17,9 @@ namespace Sidereal.Executor
         }
         public async Task RunAsync()
         {
-            _logger.LogInformation("(NOT) RUNNING ASYNC");
-
+            Task task = new(() => _logger.LogInformation("PRETENDING TO RUN ASYNC"));
+            task.Start();
+            await task;
         }
 
         public void Run()

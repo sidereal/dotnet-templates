@@ -22,17 +22,35 @@ Log.Logger.Information("Launching");
 
 var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
 {
-    //services.AddTransient<Executor>();
+    services.AddSingleton<Executor>();
 
 }).UseSerilog().Build();
 
+//using (host)
+//{
+await host.StartAsync();
 
-var executor = ActivatorUtilities.CreateInstance<Executor>(host.Services);
+var executor = host.Services.GetRequiredService<Executor>();
 await executor.RunAsync();
 executor.Run();
 
+
+//var executor = ActivatorUtilities.CreateInstance<Executor>(host.Services);
+//await executor.RunAsync();
+//executor.Run();
+
+
+
+//wait for ctrl+c
+await host.WaitForShutdownAsync();
+
+
 Log.Logger.Information("Closing");
 Log.CloseAndFlush();
+
+host.Dispose();
+//}
+
 
 static void BuildConfig(IConfigurationBuilder builder)
 {
