@@ -1,10 +1,12 @@
-﻿namespace MinimalApi
+﻿using MinimalApi.Demo;
+
+namespace MinimalApi.Endpoints
 {
-    public static class MyEndPoints
+    public static class DemoEndPoints
     {
         static string[] _summaries = { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
 
-        public static void BuildMyEndpoints(this WebApplication app)
+        public static void BuildDemoEndpoints(this WebApplication app)
         {
 
             // The standard MS demo endpoint

@@ -1,16 +1,23 @@
 using MinimalApi;
+using MinimalApi.Endpoints;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Service configuration offloaded to an extension method
-builder.BuildMyServices();
+builder.BuildApiServices();
 
 var app = builder.Build();
 
 //Pipeline configuration offloaded to an extension method
-app.BuildMyPipeline();  
+app.BuildPipeline();  
 
 //Endpoint configuration offloaded to an extension method
-app.BuildMyEndpoints();
+app.BuildDemoEndpoints();
+
+app.UseMiddleware<DemoMiddleware>();
 
 app.Run();
+
+Log.Information("Closing Down");
+Log.CloseAndFlush();
