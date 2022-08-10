@@ -5,12 +5,12 @@ using Serilog;
 
 using Sidereal.Executor;
 
+
 Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
                 .CreateBootstrapLogger();
 
 Log.Information("Starting up");
-
 
 var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
 {
@@ -20,18 +20,15 @@ var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
     (context, config) =>
                 config.Enrich.FromLogContext()
                 .ReadFrom.Configuration(context.Configuration)
-                .WriteTo.Console(outputTemplate: context.Configuration.GetValue<string>("Serilog:LogTemplate2"))
     ).Build();
-
 
 await host.StartAsync();
 
-Log.Logger.Information("Host Started");
+Log.Information("Host Started");
 
 var executor = host.Services.GetRequiredService<Executor>();
 await executor.RunAsync();
 executor.Run();
-
 
 //var executor = ActivatorUtilities.CreateInstance<Executor>(host.Services);
 //await executor.RunAsync();
