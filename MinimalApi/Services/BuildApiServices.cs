@@ -16,7 +16,7 @@ namespace MinimalApi
             builder.Host.UseSerilog((context, config) =>
                 config.Enrich.FromLogContext()
                 .ReadFrom.Configuration(context.Configuration)
-                .WriteTo.Console(outputTemplate: context.Configuration.GetValue<string>("Serilog:LogTemplate"))
+                //.WriteTo.Console(outputTemplate: context.Configuration.GetValue<string>("Serilog:LogTemplate"))
                 );
 
             // Add services to the container.
