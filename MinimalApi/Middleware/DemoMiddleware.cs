@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace MinimalApi;
 
 public class DemoMiddleware
@@ -15,7 +13,8 @@ public class DemoMiddleware
 
     public async Task InvokeAsync(HttpContext httpContext)
     {
-        _logger.LogInformation("hello from middleware!");
+        var name = GetType().Name;
+        _logger.LogInformation("Activity logged in middleware {name}", name);
         await _next(httpContext);
     }
 }
