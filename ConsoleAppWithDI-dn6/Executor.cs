@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 //using Microsoft.Extensions.Configuration;
@@ -31,5 +32,10 @@ public class Executor
     {
         _logger.LogInformation("RUNNING");
 
+    }
+
+    public void Throw()
+    {
+        throw new NotImplementedException();
     }
 }

@@ -4,7 +4,8 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 
 using Sidereal.Executor;
-
+using System;
+using System.Threading;
 
 Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
@@ -12,7 +13,7 @@ Log.Logger = new LoggerConfiguration()
 
 Log.Information("Starting up");
 
-var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
+using var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
 {
     services.AddSingleton<Executor>();
 
@@ -22,21 +23,42 @@ var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
                 .ReadFrom.Configuration(context.Configuration)
     ).Build();
 
-await host.StartAsync();
+using var scope = host.Services.CreateScope();
+var services = scope.ServiceProvider;
 Log.Information("Host Started");
 
-var executor = host.Services.GetRequiredService<Executor>();
-var countingTask = executor.RunAsync(5);
-executor.Run();
-await countingTask;
+//Console.CancelKeyPress += new ConsoleCancelEventHandler(cancelHandler);
 
-//var executor = ActivatorUtilities.CreateInstance<Executor>(host.Services);
-//await executor.RunAsync();
-//executor.Run();
 
-//wait for ctrl+c
-//Log.Logger.Information("Waiting for ctrl+c");
-//await host.WaitForShutdownAsync();
 
-Log.Logger.Information("Closing");
-Log.CloseAndFlush();
+try
+{
+    var executor = services.GetRequiredService<Executor>();
+    var countTask = executor.RunAsync(5);
+    
+    executor.Run();
+    //await Task.Delay(3500);
+    //executor.Throw();
+    await countTask;
+    //await services.GetRequiredService<Executor>().RunAsync(5);
+}
+catch (Exception ex)
+{
+    Log.Logger.Error(ex, ex.Message);
+}
+finally
+{
+    scope.Dispose();
+    Log.Logger.Information("Closing");
+    Log.CloseAndFlush();
+}
+
+//host.WaitForShutdown();
+//Log.Logger.Information("Shutdown");
+//Log.CloseAndFlush();
+
+//static void cancelHandler(object sender, ConsoleCancelEventArgs args)
+//{
+//    args.Cancel = true;
+//    Log.Logger.Information("CANCEL command received! Cleaning up. please wait...");
+//}
