@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Threading;
 
 using Serilog;
 
 using Sidereal.Executor;
-using System;
-using System.Threading;
 
 Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
@@ -27,9 +27,6 @@ using var scope = host.Services.CreateScope();
 var services = scope.ServiceProvider;
 Log.Information("Host Started");
 
-//Console.CancelKeyPress += new ConsoleCancelEventHandler(cancelHandler);
-
-
 
 try
 {
@@ -40,7 +37,6 @@ try
     //await Task.Delay(3500);
     //executor.Throw();
     await countTask;
-    //await services.GetRequiredService<Executor>().RunAsync(5);
 }
 catch (Exception ex)
 {
@@ -52,13 +48,3 @@ finally
     Log.Logger.Information("Closing");
     Log.CloseAndFlush();
 }
-
-//host.WaitForShutdown();
-//Log.Logger.Information("Shutdown");
-//Log.CloseAndFlush();
-
-//static void cancelHandler(object sender, ConsoleCancelEventArgs args)
-//{
-//    args.Cancel = true;
-//    Log.Logger.Information("CANCEL command received! Cleaning up. please wait...");
-//}
