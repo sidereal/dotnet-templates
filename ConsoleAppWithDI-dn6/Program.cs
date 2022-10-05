@@ -23,19 +23,20 @@ var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
     ).Build();
 
 await host.StartAsync();
-
 Log.Information("Host Started");
 
 var executor = host.Services.GetRequiredService<Executor>();
-await executor.RunAsync();
+var countingTask = executor.RunAsync(5);
 executor.Run();
+await countingTask;
 
 //var executor = ActivatorUtilities.CreateInstance<Executor>(host.Services);
 //await executor.RunAsync();
 //executor.Run();
 
 //wait for ctrl+c
-await host.WaitForShutdownAsync();
+//Log.Logger.Information("Waiting for ctrl+c");
+//await host.WaitForShutdownAsync();
 
 Log.Logger.Information("Closing");
 Log.CloseAndFlush();

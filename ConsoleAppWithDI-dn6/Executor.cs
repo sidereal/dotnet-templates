@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 //using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -15,11 +16,15 @@ public class Executor
         _logger = logger;
         _config = config;
     }
-    public async Task RunAsync()
+    public async Task RunAsync(int count = 1)
     {
-        Task task = new(() => _logger.LogError("PRETENDING TO RUN ASYNC"));
-        task.Start();
-        await task;
+        _logger.LogInformation("ASYNC RUNNING");
+        if (count < 1) count = 1;
+        for (int i = 1; i <= count; i++)
+        {
+            await Task.Delay(1000);
+            _logger.LogInformation("ASYNC Count {count}", i);
+        }
     }
 
     public void Run()
