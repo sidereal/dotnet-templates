@@ -6,15 +6,19 @@ namespace MinimalApi;
 
 /// <summary>
 /// Implements IMiddleware.
-/// Requires injection as a service prior to being called (See BuildApiServices helper method).
+/// Requires injection as a service prior to being called (See BuildApiServices extension method).
 /// Has a different method signatures to duck typed middleware
 /// </summary>
 public class ExceptionHandlerMiddleware : IMiddleware
 {
     private readonly ILogger<ExceptionHandlerMiddleware> _logger;
+    private readonly IConfiguration _configuration;
 
-    public ExceptionHandlerMiddleware(ILogger<ExceptionHandlerMiddleware> logger) => _logger = logger;
-
+    public ExceptionHandlerMiddleware(ILogger<ExceptionHandlerMiddleware> logger, IConfiguration configuration)
+    {
+        _logger = logger;
+        _configuration = configuration;
+    }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
@@ -27,6 +31,10 @@ public class ExceptionHandlerMiddleware : IMiddleware
         }
         catch (Exception ex)
         {
+            //Do we hide the exception from the client or expose it?
+            bool exposeException = _configuration.GetValue<bool>("Application:ExposeExceptionsToClient");
+            string detail = exposeException ? $"Exception Handled by {GetType().Name}: {ex.Message}" : "An error has occured. Contact support.";
+
             _logger.LogError(ex, ex.Message);
 
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
@@ -36,7 +44,7 @@ public class ExceptionHandlerMiddleware : IMiddleware
                 Status = (int)HttpStatusCode.InternalServerError,
                 Type = "Server Error",
                 Title = "Server Error",
-                Detail = $"Exception Handled by {GetType().Name}: {ex.Message}"
+                Detail = detail
             };
 
             string json = JsonSerializer.Serialize(problem);

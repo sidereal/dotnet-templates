@@ -34,9 +34,23 @@ public static class DemoEndpointHelpers
         ds.DoSomething(message);
         return Results.Ok(message);
     }
-}
 
-public record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    public static IResult ThrowException(ILoggerFactory loggerFactory)
+    {
+        try
+        {
+            throw new Exception("Use the ExceptionHandlerMiddleware to deal with this.");
+        }
+        catch (Exception ex)
+        {
+            var logger = loggerFactory.CreateLogger("Exception-Endpoint-Logger");
+            logger.LogError(ex, ex.Message);
+            throw;
+        }
+    }
+
+    public record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
+    {
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
 }

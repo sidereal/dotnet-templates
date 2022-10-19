@@ -13,6 +13,8 @@ public static partial class Extensions
         //this would be async in a proper endpoint
         app.MapGet("/demo", DemoEndpointHelpers.GetDemo);
 
+        //Generates an exception so we can handle it using ExceptionHandlerMiddleware
+        app.MapGet("/exception", DemoEndpointHelpers.ThrowException);
     }
 }
 
