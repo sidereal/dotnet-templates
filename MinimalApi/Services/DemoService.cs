@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace MinimalApi.Demo
+namespace MinimalApi.Services
 {
     public class DemoService
     {

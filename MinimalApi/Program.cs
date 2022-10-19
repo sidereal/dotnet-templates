@@ -1,5 +1,4 @@
-using MinimalApi;
-using MinimalApi.Endpoints;
+using MinimalApi.ExtensionMethods;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,9 +12,10 @@ var app = builder.Build();
 app.BuildPipeline();  
 
 //Endpoint configuration offloaded to an extension method
-app.BuildDemoEndpoints();
+app.BuildEndpoints();
 
-app.UseMiddleware<DemoMiddleware>();
+//Middleware configuration offloaded to an extension method
+app.BuildMiddleware();
 
 app.Run();
 

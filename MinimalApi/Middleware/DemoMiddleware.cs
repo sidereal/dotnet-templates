@@ -1,5 +1,12 @@
 namespace MinimalApi;
 
+
+/// <summary>
+/// Duck typed middleware.
+/// Does not require injection as a service prior to being called.
+/// Has a different method signatures to middleware implementing Imiddleware.
+/// </summary>
+
 public class DemoMiddleware
 {
     private readonly RequestDelegate _next;
@@ -11,11 +18,12 @@ public class DemoMiddleware
         _logger = logger;
     }
 
-    public async Task InvokeAsync(HttpContext httpContext)
+    public async Task InvokeAsync(HttpContext context)
     {
         var name = GetType().Name;
-        _logger.LogInformation("Activity logged in middleware {name}", name);
-        await _next(httpContext);
+        _logger.LogInformation("Request: Activity logged in middleware {name}", name);
+        await _next(context);
+        _logger.LogInformation("Response: Activity logged in middleware {name}", name);
     }
 }
 

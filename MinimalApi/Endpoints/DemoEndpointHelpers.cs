@@ -1,9 +1,9 @@
-﻿using MinimalApi.Demo;
+﻿using MinimalApi.Services;
 using System.Reflection;
 
-namespace MinimalApi.Helpers;
+namespace MinimalApi.Endpoints;
 
-public static class EndpointHelpers
+public static class DemoEndpointHelpers
 {
     static string[] _summaries = { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
 
